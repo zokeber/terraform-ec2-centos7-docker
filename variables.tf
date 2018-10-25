@@ -44,14 +44,22 @@ variable "key_path" {
   default = "/home/zokeber/.ssh"
 }
 
+variable "my_ip_home" {
+  default = "192.168.10.5/32"
+}
+
+variable "my_ip_office" {
+  default = "192.168.11.5/32"
+}
+
 ##
 ## Get AMI ID for CentOS 7:
 ## aws --region us-east-2 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjceOA
 variable "amis" {
   type = "map"
   default = {
-    "us-east-1" = "ami-b374d5a5", #CentOS 7
-    "us-east-2" = "ami-9c0638f9" #CentOS 7 (x86_64) - with Updates HVM - Software Version: 1805_01
+    "us-east-1" = "ami-NNNNNNNN",
+    "us-east-2" = "ami-NNNNNNNN"
   }
 }
 
