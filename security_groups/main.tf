@@ -109,9 +109,10 @@ resource "aws_security_group_rule" "ec2_egress_ssh" {
 
 resource "aws_security_group" "ec2_multiple" {
   
-  name   = "ec2_multiple"
-  vpc_id = "${var.vpc_id}"
-  tags   = "${merge(map("Name", "${var.name}-${var.env}-sg-ec2_multiple"))}"
+  name        = "ec2_multiple"
+  description = "security group that allows all inbound and outbound traffic. should only be applied to instances in a private subnet"
+  vpc_id      = "${var.vpc_id}"
+  tags        = "${merge(map("Name", "${var.name}-${var.env}-sg-ec2_multiple"))}"
 
   #Ingresses:
   ingress {
