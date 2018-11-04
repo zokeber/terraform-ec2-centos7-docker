@@ -110,14 +110,14 @@ resource "aws_security_group" "ec2_multiple" {
     protocol    = "tcp"
     from_port   = 22
     to_port     = 22
-    cidr_blocks = ["${var.my_ip_home}", "${var.my_ip_office}"]
+    cidr_blocks = ["${var.allow_ip_address}"]
   }
 
   ingress {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = ["${var.my_ip_home}", "${var.my_ip_office}"]
+    cidr_blocks = ["${var.allow_ip_address}"]
   }
 
   # Egresses:

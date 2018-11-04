@@ -65,6 +65,7 @@ module "security_groups" {
   name                = "${var.name}"
   env                 = "${var.env}"
   vpc_id              = "${module.vpc.vpc_id}"
+  allow_ip_address    = ["${var.my_ip_home}", "${var.my_ip_office}"]
 
   tags {
     Terraformed = "true"
@@ -126,3 +127,10 @@ resource "aws_instance" "ec2" {
   }
 
 }
+
+resource "aws_eip" "elastic_ip" {
+  count    = "${var.elastic_ip ? 1 : 0}" 
+  instance = "${aws_instance.ec2.id}"
+  vpc      = true
+}
+

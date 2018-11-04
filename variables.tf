@@ -52,9 +52,13 @@ variable "my_ip_office" {
   default = "192.168.11.5/32"
 }
 
+variable "elastic_ip" {
+  default = true
+}
+
 ##
 ## Get AMI ID for CentOS 7:
-## aws --region us-east-2 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjceOA
+## aws --region us-east-2 ec2 describe-images --owners aws-marketplace --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce
 variable "amis" {
   type = "map"
   default = {

@@ -8,3 +8,7 @@ variable "tags" {
   type    = "map"
   default = {}
 }
+
+variable "allow_ip_address" {
+   default = []
+}
