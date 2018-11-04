@@ -3,11 +3,12 @@
 My terraform script for provisioning a AWS EC2 instance with Docker CE running in CentOS 7
 
 ## Usage
-```
+```bash
 terraform init
 terraform plan -out tfplan -input=false
 terraform apply -input=false tfplan
 ```
+
 ### Requirements
 
 - [Install Terraform](https://www.terraform.io/intro/getting-started/install.html)
@@ -15,6 +16,12 @@ terraform apply -input=false tfplan
 **Important:**
 
 AWS Credentials with all permission for create EC2 instances, Security Groups, EBS, VPC, Subnet, Internet Gateway and Nat Gateway.
+
+### Destroy
+```bash
+terraform plan -destroy -out destroy.plan
+terraform apply "destroy.plan"
+```
 
 ### What does this do?
 
