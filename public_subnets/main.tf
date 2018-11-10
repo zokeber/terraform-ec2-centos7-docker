@@ -21,7 +21,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_eip" "nat_eip" {
-  count = "${length(var.azs)}"
+  count = "${var.enable_nat_gateway ? length(var.azs) : 0}"
   vpc   = true
 }
 
@@ -35,7 +35,7 @@ architecture, create a NAT gateway in each Availability Zone and configure your 
 to ensure that resources use the NAT gateway in the same Availability Zone.
 */
 resource "aws_nat_gateway" "nat_gw" {
-  count         = "${length(var.azs)}"
+  count         = "${var.enable_nat_gateway ? length(var.azs) : 0}"
   allocation_id = "${aws_eip.nat_eip.*.id[count.index]}"
   subnet_id     = "${aws_subnet.public.*.id[count.index]}"
   tags          = "${merge(map("Name", "${var.name}-${var.env}-nat-${data.aws_availability_zone.az.*.name_suffix[count.index]}"), var.tags)}"
@@ -44,4 +44,6 @@ resource "aws_nat_gateway" "nat_gw" {
     create_before_destroy = true
     ignore_changes        = ["subnet_id"]
   }
+
+  depends_on  = ["aws_eip.nat_eip"]
 }

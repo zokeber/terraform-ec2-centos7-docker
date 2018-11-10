@@ -10,11 +10,14 @@ module "vpc" {
 
 module "public_subnets" {
   source         = "./public_subnets"
-  name           = "${var.name}"
-  env            = "${var.env}"
-  vpc_id         = "${module.vpc.vpc_id}"
-  azs            = "${var.azs}"
-  public_sn_cidr = "${cidrsubnet(var.vpc_cidr, 2, 0)}"
+
+  name               = "${var.name}"
+  env                = "${var.env}"
+  vpc_id             = "${module.vpc.vpc_id}"
+  azs                = "${var.azs}"
+  public_sn_cidr     = "${cidrsubnet(var.vpc_cidr, 2, 0)}"
+
+  enable_nat_gateway = "${var.enable_nat_gateway}"
 
   tags {
     Terraformed = "true"
@@ -22,12 +25,13 @@ module "public_subnets" {
 }
 
 module "private_subnets" {
-  source          = "./private_subnets"
-  name            = "${var.name}"
-  env            = "${var.env}"
-  vpc_id          = "${module.vpc.vpc_id}"
-  azs             = "${var.azs}"
-  private_sn_cidr = "${cidrsubnet(var.vpc_cidr, 2, 2)}"
+  source              = "./private_subnets"
+  name                = "${var.name}"
+  env                 = "${var.env}"
+  vpc_id              = "${module.vpc.vpc_id}"
+  azs                 = "${var.azs}"
+  private_sn_cidr     = "${cidrsubnet(var.vpc_cidr, 2, 2)}"
+
 
   tags {
     Terraformed = "true"
@@ -48,12 +52,13 @@ module "public-route-table" {
 }
 
 module "private-route-table" {
-  source             = "./private-route-table"
-  name               = "${var.name}"
-  vpc_id             = "${module.vpc.vpc_id}"
-  private_subnet_ids = "${module.private_subnets.private_subnet_ids}"
-  nat_gateway_ids    = "${module.public_subnets.nat_gateway_ids}"
-  azs                = "${var.azs}"
+  source              = "./private-route-table"
+  name                = "${var.name}"
+  vpc_id              = "${module.vpc.vpc_id}"
+  private_subnet_ids  = "${module.private_subnets.private_subnet_ids}"
+  nat_gateway_ids     = "${module.public_subnets.nat_gateway_ids}"
+  azs                 = "${var.azs}"
+  enable_nat_gateway  = "${var.enable_nat_gateway}"
 
   tags {
     Terraformed = "true"
@@ -133,4 +138,3 @@ resource "aws_eip" "elastic_ip" {
   instance = "${aws_instance.ec2.id}"
   vpc      = true
 }
-

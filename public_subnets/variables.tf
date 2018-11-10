@@ -14,3 +14,5 @@ variable "tags" {
   type    = "map"
   default = {}
 }
+
+variable "enable_nat_gateway" {}
