@@ -7,7 +7,7 @@ variable "region" {
 }
 
 variable "azs" {
-  default = ["us-east-2a", "us-east-2b", "us-east-2c"]
+  default = ["us-east-2a"]
   type    = "list"
 }
 
@@ -16,15 +16,15 @@ variable "env" {
 }
 
 variable "vpc_cidr" {
-  default = "10.100.0.0/16"
+  default = "10.0.0.0/16"
 }
 
 variable "volume_size" {
-  default = 100
+  default = 10
 }
 
 variable "aws_type" {
-  default = "t2.small"
+  default = "t3.small"
 }
 
 variable "user_connection" {
@@ -41,7 +41,7 @@ variable "key_private" {
 }
 
 variable "key_path" {
-  default = "/home/zokeber/.ssh"
+  default = "~/.ssh"
 }
 
 variable "my_ip_home" {
@@ -53,8 +53,13 @@ variable "my_ip_office" {
 }
 
 variable "elastic_ip" {
-  default = true
+  default = false
 }
+
+variable "enable_nat_gateway" {
+  default = false
+}
+
 
 ##
 ## Get AMI ID for CentOS 7:
