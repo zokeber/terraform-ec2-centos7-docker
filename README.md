@@ -8,7 +8,6 @@ terraform init
 terraform plan -out tfplan -input=false
 terraform apply -input=false tfplan
 ```
-
 ### Requirements
 
 - [Install Terraform](https://www.terraform.io/intro/getting-started/install.html)
@@ -16,6 +15,25 @@ terraform apply -input=false tfplan
 **Important:**
 
 AWS Credentials with all permission for create EC2 instances, Security Groups, EBS, VPC, Subnet, Internet Gateway and Nat Gateway.
+
+### More options
+
+#### Enable AWS Elastic IP Address:
+
+By default AWS Elastic IP Address assign is disable, if you want enable a AWS Elasitc IP, run:
+
+```bash
+terraform plan -out tfplan -input=false -var elastic_ip=true
+terraform apply -input=false tfplan
+```
+#### Enable Nat Gateway:
+
+By default AWS Nat Gateway is disable, if you want enable a AWS Nat Gateway, please run:
+
+```bash
+terraform plan -out tfplan -input=false -var enable_nat_gateway=true
+terraform apply -input=false tfplan
+```
 
 ### Destroy
 ```bash
