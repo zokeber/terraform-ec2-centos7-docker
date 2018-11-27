@@ -20,7 +20,7 @@ AWS Credentials with all permission for create EC2 instances, Security Groups, E
 
 #### Enable AWS Elastic IP Address:
 
-By default AWS Elastic IP Address assign is disable, if you want enable a AWS Elasitc IP, run:
+By default AWS Elastic IP Address assign is disable, if you want to enable a AWS Elasitc IP, run:
 
 ```bash
 terraform plan -out tfplan -input=false -var 'elastic_ip=true'
@@ -28,7 +28,7 @@ terraform apply -input=false tfplan
 ```
 #### Enable Nat Gateway:
 
-By default AWS Nat Gateway is disable, if you want enable a AWS Nat Gateway, please run:
+By default AWS Nat Gateway is disable, if you want to enable a AWS Nat Gateway, please run:
 
 ```bash
 terraform plan -out tfplan -input=false -var 'enable_nat_gateway=true'
