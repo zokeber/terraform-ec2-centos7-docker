@@ -98,6 +98,24 @@ resource "aws_instance" "ec2" {
     delete_on_termination     = "true"
   }
 
+  tags {
+    Name        = "${var.name}"
+    Environment = "${var.env}"
+    Terraformed = "true"
+  }
+
+}
+
+resource "aws_eip" "elastic_ip" {
+  count    = "${var.elastic_ip ? 1 : 0}" 
+  instance = "${aws_instance.ec2.id}"
+  vpc      = true
+
+  depends_on = ["aws_instance.ec2"]
+}
+
+resource "null_resource" "install_docker" {
+
   provisioner "file" {
     source      = "script.sh"
     destination = "/tmp/script.sh"
@@ -125,16 +143,6 @@ resource "aws_instance" "ec2" {
 
   }
 
-  tags {
-    Name        = "${var.name}"
-    Environment = "${var.env}"
-    Terraformed = "true"
-  }
+  depends_on = ["aws_eip.elastic_ip"]
 
-}
-
-resource "aws_eip" "elastic_ip" {
-  count    = "${var.elastic_ip ? 1 : 0}" 
-  instance = "${aws_instance.ec2.id}"
-  vpc      = true
 }
