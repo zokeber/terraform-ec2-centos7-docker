@@ -1,3 +1,4 @@
+## If you change this variable, You have to change in your AWS credential file:
 variable "name" {
   default = "docker-server"
 }
